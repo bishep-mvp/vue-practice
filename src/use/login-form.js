@@ -48,7 +48,6 @@ export function useLoginForm() {
   });
 
   const onSubmit = handleSubmit(async (values) => {
-    console.log("Form", values);
     await store.dispatch("auth/login", values);
     router.push("/");
   });

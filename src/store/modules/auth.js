@@ -1,3 +1,6 @@
+import { error } from "@/utils/error";
+import axios from "axios";
+
 const TOKEN_KEY = "jwt-token";
 
 export default {
@@ -20,7 +23,19 @@ export default {
   },
   actions: {
     async login({ commit }, payload) {
-      commit("setToken", "TEST TOKEN");
+      try {
+        const url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${
+          import.meta.env.VITE_FB_KEY
+        }`;
+        const { data } = await axios.post(url, {
+          ...payload,
+          returnSecureToken: true,
+        });
+        console.log(data);
+        commit("setToken", data.idToken);
+      } catch (e) {
+        console.log(error(e.response.data.error.message));
+      }
     },
   },
   getters: {

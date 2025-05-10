@@ -28,6 +28,12 @@
 
 <script setup>
 import { useLoginForm } from "@/use/login-form";
+import { error } from "@/utils/error";
+import { useRoute } from "vue-router";
+import { useStore } from "vuex";
+
+const store = useStore();
+const route = useRoute();
 
 const {
   email,
@@ -40,4 +46,8 @@ const {
   isSubmitting,
   isTooManyAttempts,
 } = useLoginForm();
+
+if (route.query.message) {
+  store.dispatch("setMessage", { value: error(route.query.message), type: "warning" });
+}
 </script>

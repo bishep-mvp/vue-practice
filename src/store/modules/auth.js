@@ -31,7 +31,6 @@ export default {
           ...payload,
           returnSecureToken: true,
         });
-        console.log(data);
         commit("setToken", data.idToken);
         commit("clearMessage", null, { root: true });
       } catch (e) {
@@ -43,7 +42,6 @@ export default {
           },
           { root: true }
         );
-        console.log(error(e.response.data.error.message));
         throw new Error();
       }
     },

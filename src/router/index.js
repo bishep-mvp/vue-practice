@@ -33,6 +33,7 @@ const router = createRouter({
       },
     },
   ],
+  linkActiveClass: "active",
 });
 
 router.beforeEach((to, from, next) => {

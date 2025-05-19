@@ -1,10 +1,11 @@
 <template>
   <TheNavbar />
   <div class="container with-nav">
-    <div class="card"></div>
+    <RouterView />
   </div>
 </template>
 
 <script setup>
 import TheNavbar from "@/components/TheNavbar.vue";
+import { RouterView } from "vue-router";
 </script>

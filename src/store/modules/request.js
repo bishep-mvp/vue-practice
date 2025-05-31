@@ -48,6 +48,43 @@ export default {
         console.log(e);
       }
     },
+
+    async load({ commit, dispatch }) {
+      try {
+        const token = store.getters["auth/token"];
+        const { data } = await axios.get(`/requests.json?auth=${token}`);
+        const requests = Object.keys(data).map((id) => ({ ...data[id], id }));
+        commit("setRequests", requests);
+      } catch (e) {
+        dispatch(
+          "setMessage",
+          {
+            value: e.message,
+            type: "danger",
+          },
+          { root: true }
+        );
+        console.log(e);
+      }
+    },
+
+    async loadOne({ commit, dispatch }, id) {
+      try {
+        const token = store.getters["auth/token"];
+        const { data } = await axios.get(`/requests/${id}.json?auth=${token}`);
+        return data;
+      } catch (e) {
+        dispatch(
+          "setMessage",
+          {
+            value: e.message,
+            type: "danger",
+          },
+          { root: true }
+        );
+        console.log(e);
+      }
+    },
   },
 
   getters: {
